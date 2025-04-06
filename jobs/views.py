@@ -87,6 +87,7 @@ class get_job_details(APIView):
                 "job_posted_at": job.get("job_posted_at"),
                 "job_posted_at_datetime_utc": job.get("job_posted_at_datetime_utc"),
                 "job_location": job.get("job_location"),
+                "job_highlights": job.get("job_highlights"),
             }
             res = {
                 "success": True,
