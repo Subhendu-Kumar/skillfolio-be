@@ -58,6 +58,7 @@ class LoginSerializer(serializers.Serializer):
         else:
             raise serializers.ValidationError("Email and password are required.")
         return {
-            "email": user.email,
             "id": str(user.id),
+            "email": user.email,
+            "username": user.username,
         }
