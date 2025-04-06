@@ -52,7 +52,7 @@ class TokenAuthentication(BaseAuthentication):
 
     @staticmethod
     def generate_token(payload):
-        expiration = datetime.now() + timedelta(hours=5)
+        expiration = datetime.now() + timedelta(hours=24)
         payload["exp"] = int(expiration.timestamp())
         token = jwt.encode(payload=payload, key=settings.SECRET_KEY, algorithm="HS256")
         return token
