@@ -3,6 +3,7 @@ from django.conf import settings
 from rest_framework import status  # type: ignore
 from rest_framework.views import APIView  # type: ignore
 from rest_framework.response import Response  # type: ignore
+from rest_framework import permissions  # type: ignore
 
 headers = {
     "X-Rapidapi-Key": settings.RAPID_API_KEY,
@@ -11,6 +12,8 @@ headers = {
 
 
 class get_latest_jobs(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+
     def get(self, request):
         query = request.query_params.get("query", "latest software jobs")
         url = (
@@ -36,6 +39,9 @@ class get_latest_jobs(APIView):
                 "job_title": job.get("job_title"),
                 "employer_name": job.get("employer_name"),
                 "job_posted_at": job.get("job_posted_at"),
+                "employer_logo": job.get("employer_logo"),
+                "job_employment_type": job.get("job_employment_type"),
+                "job_location": job.get("job_location"),
             }
             for job in data.get("data", [])
         ]
@@ -49,6 +55,8 @@ class get_latest_jobs(APIView):
 
 
 class get_job_details(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+
     def get(self, request, job_id):
         url = f"https://{settings.RAPID_API_HOST}/job-details?job_id={job_id}"
 
