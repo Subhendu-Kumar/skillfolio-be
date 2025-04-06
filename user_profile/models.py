@@ -10,31 +10,35 @@ class UserProfile(models.Model):
     )
 
     # Basic Info
-    full_name = models.CharField(max_length=255)
-    phone_number = models.CharField(max_length=20, blank=True, null=True)
-    location = models.CharField(max_length=255, blank=True, null=True)
-    bio = models.TextField(blank=True, null=True)
+    full_name = models.CharField(max_length=255, blank=True, default="demo name")
+    phone_number = models.CharField(max_length=20, blank=True, default="1230987654")
+    location = models.CharField(max_length=255, blank=True, default="india")
+    bio = models.TextField(blank=True, default="demo demo")
 
     # Education
-    highest_qualification = models.CharField(max_length=255, blank=True, null=True)
-    university = models.CharField(max_length=255, blank=True, null=True)
-    graduation_year = models.PositiveIntegerField(blank=True, null=True)
+    highest_qualification = models.CharField(
+        max_length=255, blank=True, default="example"
+    )
+    university = models.CharField(max_length=255, blank=True, default="example")
+    graduation_year = models.PositiveIntegerField(blank=True, default=2004)
 
     # Experience
-    current_position = models.CharField(max_length=255, blank=True, null=True)
+    current_position = models.CharField(max_length=255, blank=True, default="example")
     experience_years = models.DecimalField(
-        max_digits=4, decimal_places=1, blank=True, null=True
+        max_digits=4, decimal_places=1, blank=True, default=4.5
     )
 
     # Skills
     skills = models.TextField(
-        blank=True, help_text="Comma-separated skills (e.g. Python, Django, React)"
+        blank=True,
+        default="example, demo",
+        help_text="Comma-separated skills (e.g. Python, Django, React)",
     )
 
     # Socials
-    linkedin = models.URLField(blank=True, null=True)
-    github = models.URLField(blank=True, null=True)
-    portfolio = models.URLField(blank=True, null=True)
+    linkedin = models.URLField(blank=True, default="https://example.com")
+    github = models.URLField(blank=True, default="https://example.com")
+    portfolio = models.URLField(blank=True, default="https://example.com")
 
     is_complete = models.BooleanField(
         default=False, help_text="Is the profile complete?"
