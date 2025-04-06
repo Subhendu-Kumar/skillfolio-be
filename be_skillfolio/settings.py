@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     "account",
     "user_profile",
     "jobs",
+    "stats",
 ]
 
 MIDDLEWARE = [
