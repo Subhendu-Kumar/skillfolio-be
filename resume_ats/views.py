@@ -9,7 +9,7 @@ from rest_framework.parsers import MultiPartParser  # type: ignore
 
 class ResumeImageUploadAPIView(APIView):
     parser_classes = [MultiPartParser]
-    # permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticated]
 
     def post(self, request, *args, **kwargs):
         resume_file = request.FILES.get("resume")
