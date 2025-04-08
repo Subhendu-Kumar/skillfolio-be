@@ -1,12 +1,11 @@
+from google import genai
 from django.conf import settings
-import google.generativeai as genai  # type: ignore
 
-genai.configure(api_key=settings.GEMINI_API_KEY)
+client = genai.Client(api_key=settings.GEMINI_API_KEY)
 
 
 def get_ats_score_with_vision(images_base64, job_description):
-    model = genai.GenerativeModel("gemini-2.0-flash")
-
+    model = "gemini-2.0-flash"
     master_prompt = """
     You are an ATS resume checker that analyzes and optimizes resumes to improve their compatibility with Applicant Tracking Systems (ATS) and increase the chances of securing job interviews. Your task is to carefully review the uploaded resume and a provided job description. Your response must be in JSON format and include the following sections:
 
@@ -97,5 +96,9 @@ Remember to ensure the confidentiality and privacy of user data in your analysis
     for img in images_base64:
         contents.append({"inline_data": img})
 
-    response = model.generate_content(contents)
+    response = client.models.generate_content(
+        model=model,
+        contents=contents,
+    )
+
     return response.text
