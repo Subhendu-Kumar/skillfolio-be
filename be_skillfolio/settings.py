@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     "user_profile",
     "jobs",
     "stats",
+    "resume_ats",
 ]
 
 MIDDLEWARE = [
@@ -75,6 +76,7 @@ CORS_ALLOW_ALL_ORIGINS = True
 
 RAPID_API_KEY = env("RAPID_API_KEY")
 RAPID_API_HOST = env("RAPID_API_HOST")
+GEMINI_API_KEY = env("GEMINI_API_KEY")
 
 TEMPLATES = [
     {
