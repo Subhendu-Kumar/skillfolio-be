@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>{{ resume.personal_info.name }} - Resume</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            max-width: 800px;
+            background: white;
+            padding: 20px;
+            margin: auto;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .header {
+            text-align: center;
+        }
+
+        .header h1 {
+            margin-bottom: 5px;
+        }
+
+        .contact {
+            text-align: center;
+            font-size: 14px;
+        }
+
+        .section {
+            margin-top: 20px;
+        }
+
+        .section h2 {
+            border-bottom: 2px solid #333;
+            padding-bottom: 2px;
+        }
+
+        .skills,
+        .soft-skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .skills span,
+        .soft-skills span {
+            background: #ddd;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+
+        ul {
+            padding-left: 20px;
+        }
+
+        @page {
+            size: A4;
+            margin: 20mm;
+        }
+
+        @media print {
+            body {
+                background: none;
+                padding: 0;
+            }
+
+            .container {
+                box-shadow: none;
+                margin: 0;
+                width: 100%;
+                padding: 0;
+            }
+
+            .skills span,
+            .soft-skills span {
+                background: #eee;
+                color: #000;
+            }
+
+            a {
+                color: black;
+                text-decoration: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>{{ resume.personal_info.name }}</h1>
+            <p class="contact">{{ resume.personal_info.phone }} | {{ resume.personal_info.email }}</p>
+            <p class="contact">
+                <a href="{{ resume.personal_info.github }}" target="_blank">GitHub</a> |
+                <a href="{{ resume.personal_info.linkedin }}" target="_blank">LinkedIn</a> |
+                <a href="{{ resume.personal_info.portfolio }}" target="_blank">Portfolio</a>
+            </p>
+        </div>
+
+        <div class="section">
+            <h2>Summary</h2>
+            <p>{{ resume.summary }}</p>
+        </div>
+
+        <div class="section">
+            <h2>Technical Skills</h2>
+            <div class="skills">
+                {% for skill in resume.skills %}
+                <span>{{ skill }} ,</span>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Work Experience</h2>
+            {% for job in resume.experience %}
+            <p><strong>{{ job.role }}</strong> - {{ job.company }} ({{ job.dates }})</p>
+            <ul>
+                {% for task in job.responsibilities %}
+                <li>{{ task }}</li>
+                {% endfor %}
+            </ul>
+            {% endfor %}
+        </div>
+
+        <div class="section">
+            <h2>Education</h2>
+            {% for edu in resume.education %}
+            <p><strong>{{ edu.degree }}</strong> - {{ edu.institution }} ({{ edu.dates }})</p>
+            {% endfor %}
+        </div>
+
+        <div class="section">
+            <h2>Projects</h2>
+            <ul>
+                {% for proj in resume.projects %}
+                <li><strong>{{ proj.title }}</strong> - {{ proj.description }}<br>
+                    <em>Tech Stack:</em> {{ proj.tech_stack }}
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</body>
+
+</html>
