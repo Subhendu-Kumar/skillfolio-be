@@ -1,7 +1,4 @@
 import re, json
-from django.http import HttpResponse
-from xhtml2pdf import pisa  # type: ignore
-from django.template.loader import get_template
 from resume_ats.pdfutil import pdf_to_base64_images
 from rest_framework import permissions  # type: ignore
 from rest_framework.views import APIView  # type: ignore
@@ -69,14 +66,7 @@ class ResumeEnhancer(APIView):
             json_string = match.group(1)
             try:
                 parsed = json.loads(json_string)
-                template = get_template("resume_template.html")
-                html = template.render({"resume": parsed["enhanced_resume"]})
-                response = HttpResponse(content_type="application/pdf")
-                response["Content-Disposition"] = 'attachment; filename="resume.pdf"'
-                pisa_status = pisa.CreatePDF(html, dest=response)
-                if pisa_status.err:
-                    return Response("PDF generation error", status=500)
-                return response
+                return Response(parsed)
             except json.JSONDecodeError as e:
                 return Response({"error": f"JSON decode error: {str(e)}"}, status=422)
 
