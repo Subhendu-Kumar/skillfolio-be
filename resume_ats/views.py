@@ -1,4 +1,6 @@
 import re, json
+from stats.models import Statistics
+from stats.serializers import StatisticsSerializer
 from resume_ats.pdfutil import pdf_to_base64_images
 from rest_framework import permissions  # type: ignore
 from rest_framework.views import APIView  # type: ignore
@@ -36,6 +38,32 @@ class ResumeATSEvaluation(APIView):
             except json.JSONDecodeError as e:
                 return Response({"error": f"JSON decode error: {str(e)}"}, status=422)
 
+            try:
+                score_str = parsed.get("total_score", "0/1000")
+                score = int(score_str.split("/")[0])
+                if not (0 <= score <= 1000):
+                    raise ValueError("Score must be between 0 and 1000.")
+            except (ValueError, IndexError) as e:
+                return Response(
+                    {"error": f"Invalid score format: {str(e)}"}, status=422
+                )
+
+            stats, _ = Statistics.objects.get_or_create(user=request.user)
+            updated_data = {
+                "ats_score": score,
+                "resume_enhanced": stats.resume_enhanced + 1,
+            }
+            serializer = StatisticsSerializer(
+                instance=stats, data=updated_data, partial=True
+            )
+            if serializer.is_valid():
+                serializer.save()
+            else:
+                return Response(
+                    {"error": "Validation failed", "details": serializer.errors},
+                    status=400,
+                )
+
             return Response({"score_response": parsed})
         except Exception as e:
             return Response({"error": str(e)}, status=500)
@@ -66,9 +94,24 @@ class ResumeEnhancer(APIView):
             json_string = match.group(1)
             try:
                 parsed = json.loads(json_string)
-                return Response(parsed)
+                stats, _ = Statistics.objects.get_or_create(user=request.user)
+                updated_data = {
+                    "resume_enhanced": stats.resume_enhanced + 1,
+                }
+                serializer = StatisticsSerializer(
+                    instance=stats, data=updated_data, partial=True
+                )
+                if serializer.is_valid():
+                    serializer.save()
+                else:
+                    return Response(
+                        {"error": "Validation failed", "details": serializer.errors},
+                        status=400,
+                    )
             except json.JSONDecodeError as e:
                 return Response({"error": f"JSON decode error: {str(e)}"}, status=422)
+
+            return Response(parsed)
 
         except Exception as e:
             return Response({"error": str(e)}, status=500)
