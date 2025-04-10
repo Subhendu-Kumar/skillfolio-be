@@ -1,25 +1,23 @@
 # views.py
+from stats.models import Statistics
+from stats.serializers import StatisticsSerializer
 from rest_framework.views import APIView  # type: ignore
 from rest_framework.response import Response  # type: ignore
 from rest_framework import status, permissions  # type: ignore
-from stats.models import Statistics
-from stats.serializers import StatisticsSerializer
 
 
 class StatisticsView(APIView):
     permission_classes = [permissions.IsAuthenticated]
 
     def get(self, request):
-        stats, _ = Statistics.objects.get_or_create(
-            user=request.user, defaults={"jobs_visited": 0}
+        stats = Statistics.objects.get(
+            user=request.user,
         )
         serializer = StatisticsSerializer(stats)
         return Response(serializer.data)
 
     def post(self, request):
-        stats, created = Statistics.objects.get_or_create(
-            user=request.user, defaults={"jobs_visited": 0}
-        )
+        stats, create = Statistics.objects.get_or_create(user=request.user)
         stats.jobs_visited += 1
         stats.save()
         serializer = StatisticsSerializer(stats)

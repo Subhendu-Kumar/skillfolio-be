@@ -10,6 +10,8 @@ class Statistics(models.Model):
     )
 
     jobs_visited = models.IntegerField(default=0)
+    resume_enhanced = models.IntegerField(default=0)
+    ats_score = models.IntegerField(default=0)
 
     class Meta:
         db_table = "statistics"
