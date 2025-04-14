@@ -1,9 +1,11 @@
+import urllib.parse
 import requests  # type: ignore
 from django.conf import settings
 from rest_framework import status  # type: ignore
 from rest_framework.views import APIView  # type: ignore
 from rest_framework.response import Response  # type: ignore
 from rest_framework import permissions  # type: ignore
+
 
 headers = {
     "X-Rapidapi-Key": settings.RAPID_API_KEY,
@@ -58,7 +60,8 @@ class get_job_details(APIView):
     permission_classes = [permissions.IsAuthenticated]
 
     def get(self, request, job_id):
-        url = f"https://{settings.RAPID_API_HOST}/job-details?job_id={job_id}"
+        encoded_job_id = urllib.parse.quote(job_id)
+        url = f"https://{settings.RAPID_API_HOST}/job-details?job_id={encoded_job_id}"
 
         try:
             response = requests.get(url, headers=headers)
