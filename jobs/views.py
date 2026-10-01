@@ -1,11 +1,10 @@
+import requests
 import urllib.parse
-import requests  # type: ignore
 from django.conf import settings
-from rest_framework import status  # type: ignore
-from rest_framework.views import APIView  # type: ignore
-from rest_framework.response import Response  # type: ignore
-from rest_framework import permissions  # type: ignore
-
+from rest_framework import status
+from rest_framework import permissions
+from rest_framework.views import APIView
+from rest_framework.response import Response
 
 headers = {
     "X-Rapidapi-Key": settings.RAPID_API_KEY,

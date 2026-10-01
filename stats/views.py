@@ -1,9 +1,9 @@
 from stats.models import Statistics
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status, permissions
 from django.shortcuts import get_object_or_404
 from stats.serializers import StatisticsSerializer
-from rest_framework.views import APIView  # type: ignore
-from rest_framework.response import Response  # type: ignore
-from rest_framework import status, permissions  # type: ignore
 
 
 class StatisticsView(APIView):

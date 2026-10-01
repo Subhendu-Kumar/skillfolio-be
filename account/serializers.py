@@ -1,6 +1,6 @@
-from rest_framework import serializers  # type: ignore
-from django.contrib.auth import get_user_model, authenticate
 import re
+from rest_framework import serializers
+from django.contrib.auth import get_user_model, authenticate
 
 
 class UserSerializer(serializers.ModelSerializer):

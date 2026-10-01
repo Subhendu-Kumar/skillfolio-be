@@ -1,5 +1,5 @@
+import fitz
 import base64
-import fitz  # type: ignore
 
 
 def pdf_to_base64_images(file):

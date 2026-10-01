@@ -1,5 +1,4 @@
 from django.urls import path
-
 from resume_ats.views import ResumeATSEvaluation, ResumeEnhancer
 
 urlpatterns = [

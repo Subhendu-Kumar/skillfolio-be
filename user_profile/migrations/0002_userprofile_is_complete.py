@@ -6,13 +6,15 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('user_profile', '0001_initial'),
+        ("user_profile", "0001_initial"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='userprofile',
-            name='is_complete',
-            field=models.BooleanField(default=False, help_text='Is the profile complete?'),
+            model_name="userprofile",
+            name="is_complete",
+            field=models.BooleanField(
+                default=False, help_text="Is the profile complete?"
+            ),
         ),
     ]

@@ -2,8 +2,8 @@ from google import genai
 from django.conf import settings
 from resume_ats.prompts import master_prompt_ats, master_prompt_enhance_resume
 
-client = genai.Client(api_key=settings.GEMINI_API_KEY)
 model = "gemini-2.0-flash"
+client = genai.Client(api_key=settings.GEMINI_API_KEY)
 
 
 def get_ats_score_with_vision(images_base64, job_description):

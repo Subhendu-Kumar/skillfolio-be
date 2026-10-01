@@ -1,8 +1,8 @@
-from rest_framework.views import APIView  # type: ignore
-from rest_framework.response import Response  # type: ignore
-from rest_framework import status  # type: ignore
-from account.serializers import UserSerializer, LoginSerializer
+from rest_framework import status
+from rest_framework.views import APIView
+from rest_framework.response import Response
 from account.tokenauth import TokenAuthentication
+from account.serializers import UserSerializer, LoginSerializer
 
 
 class UserRegistration(APIView):

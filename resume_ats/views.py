@@ -1,11 +1,11 @@
 import re, json
 from stats.models import Statistics
+from rest_framework import permissions
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework.parsers import MultiPartParser
 from stats.serializers import StatisticsSerializer
 from resume_ats.pdfutil import pdf_to_base64_images
-from rest_framework import permissions  # type: ignore
-from rest_framework.views import APIView  # type: ignore
-from rest_framework.response import Response  # type: ignore
-from rest_framework.parsers import MultiPartParser  # type: ignore
 from resume_ats.geminiutil import get_ats_score_with_vision, get_enhanced_resume
 
 

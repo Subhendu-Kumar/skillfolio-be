@@ -1,10 +1,10 @@
-import jwt  # type: ignore
-from jwt.exceptions import ExpiredSignatureError, InvalidTokenError  # type: ignore
-from rest_framework.authentication import BaseAuthentication  # type: ignore
-from rest_framework.exceptions import AuthenticationFailed  # type: ignore
+import jwt
 from django.conf import settings
-from django.contrib.auth import get_user_model
 from datetime import datetime, timedelta
+from django.contrib.auth import get_user_model
+from rest_framework.exceptions import AuthenticationFailed
+from rest_framework.authentication import BaseAuthentication
+from jwt.exceptions import ExpiredSignatureError, InvalidTokenError
 
 
 class TokenAuthentication(BaseAuthentication):

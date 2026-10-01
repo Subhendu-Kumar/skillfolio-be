@@ -1,5 +1,5 @@
+from rest_framework import generics, permissions
 from user_profile.serializers import UserProfileSerializer
-from rest_framework import generics, permissions  # type: ignore
 
 
 # 🔹 Retrieve Profile (GET)

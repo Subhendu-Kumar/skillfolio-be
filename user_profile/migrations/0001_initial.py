@@ -16,29 +16,64 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='UserProfile',
+            name="UserProfile",
             fields=[
-                ('id', models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True, serialize=False)),
-                ('full_name', models.CharField(max_length=255)),
-                ('phone_number', models.CharField(blank=True, max_length=20, null=True)),
-                ('location', models.CharField(blank=True, max_length=255, null=True)),
-                ('bio', models.TextField(blank=True, null=True)),
-                ('highest_qualification', models.CharField(blank=True, max_length=255, null=True)),
-                ('university', models.CharField(blank=True, max_length=255, null=True)),
-                ('graduation_year', models.PositiveIntegerField(blank=True, null=True)),
-                ('current_position', models.CharField(blank=True, max_length=255, null=True)),
-                ('experience_years', models.DecimalField(blank=True, decimal_places=1, max_digits=4, null=True)),
-                ('skills', models.TextField(blank=True, help_text='Comma-separated skills (e.g. Python, Django, React)')),
-                ('linkedin', models.URLField(blank=True, null=True)),
-                ('github', models.URLField(blank=True, null=True)),
-                ('portfolio', models.URLField(blank=True, null=True)),
-                ('created_at', models.DateTimeField(auto_now_add=True)),
-                ('user', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, related_name='profile', to=settings.AUTH_USER_MODEL)),
+                (
+                    "id",
+                    models.UUIDField(
+                        default=uuid.uuid4,
+                        editable=False,
+                        primary_key=True,
+                        serialize=False,
+                    ),
+                ),
+                ("full_name", models.CharField(max_length=255)),
+                (
+                    "phone_number",
+                    models.CharField(blank=True, max_length=20, null=True),
+                ),
+                ("location", models.CharField(blank=True, max_length=255, null=True)),
+                ("bio", models.TextField(blank=True, null=True)),
+                (
+                    "highest_qualification",
+                    models.CharField(blank=True, max_length=255, null=True),
+                ),
+                ("university", models.CharField(blank=True, max_length=255, null=True)),
+                ("graduation_year", models.PositiveIntegerField(blank=True, null=True)),
+                (
+                    "current_position",
+                    models.CharField(blank=True, max_length=255, null=True),
+                ),
+                (
+                    "experience_years",
+                    models.DecimalField(
+                        blank=True, decimal_places=1, max_digits=4, null=True
+                    ),
+                ),
+                (
+                    "skills",
+                    models.TextField(
+                        blank=True,
+                        help_text="Comma-separated skills (e.g. Python, Django, React)",
+                    ),
+                ),
+                ("linkedin", models.URLField(blank=True, null=True)),
+                ("github", models.URLField(blank=True, null=True)),
+                ("portfolio", models.URLField(blank=True, null=True)),
+                ("created_at", models.DateTimeField(auto_now_add=True)),
+                (
+                    "user",
+                    models.OneToOneField(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="profile",
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'user_profile',
-                'verbose_name_plural': 'user_profiles',
-                'db_table': 'user_profile',
+                "verbose_name": "user_profile",
+                "verbose_name_plural": "user_profiles",
+                "db_table": "user_profile",
             },
         ),
     ]
